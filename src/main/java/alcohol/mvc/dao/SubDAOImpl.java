@@ -79,6 +79,7 @@ public class SubDAOImpl implements SubDAO {
 				
 			}
 		}finally {
+
 			DbUtil.dbClose(rs, ps, con);
 		}
 		return dto;

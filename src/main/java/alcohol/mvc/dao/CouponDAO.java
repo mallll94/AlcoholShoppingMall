@@ -22,6 +22,8 @@ public interface CouponDAO {
 	 * */
 	public List<CouponDTO> couponAll(String id)throws SQLException;
 	
-
-	
+	/**
+	 * 개수
+	 * */
+	public CouponDTO couponNo(String id)throws SQLException;
 }

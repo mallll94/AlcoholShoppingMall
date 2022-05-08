@@ -21,5 +21,8 @@ public interface CouponService {
 	 * */
 	public List<CouponDTO> couponAll(String id)throws SQLException;
 	
-
+	/**
+	 * 쿠폰 갯수
+	 * */
+	public CouponDTO couponNo(String id)throws SQLException;
 }

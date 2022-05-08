@@ -114,6 +114,7 @@ public class UserDAOImpl implements UserDAO {
 			}
 
 		} finally {
+			con.commit();
 			DbUtil.dbClose(rs, ps, con);
 		}
 

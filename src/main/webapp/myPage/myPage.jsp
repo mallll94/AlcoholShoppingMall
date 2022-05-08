@@ -9,47 +9,44 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 $(function(){
-alert(1)
-function selectAll(){	
-	$.ajax({
-			url :"../ajax" , //서버요청주소
-			type:"post", //요청방식(method방식 : get | post | put | delete )
-			dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
-			data: {key :"user", methodName:"mypage", cate :"${loginId}"},
 
-			success :function(result){
+
+	function selectAll(){	
+		$.ajax({
+				url :"${pageContext.request.contextPath}/ajax" , //서버요청주소
+				type:"post", //요청방식(method방식 : get | post | put | delete )
+				dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+				data: {key :"user", methodName:"mypage", cate :"${loginId}"},
+				success :function(result){
+					let coupon = "";
+					let couList="";
+					let subName = "";
+					let subDate="";
+					//alert(coupon);
+					$.each(result, function(i, map){ //2개 
+							coupon = map.couponNo;
+							subName = map.subName;
+							subDate += "구독시작일 : ";
+							subDate += map.sDTO.subStartDate;
+							subDate +="~";
+		   			        $.each(map.clist , function(index, item){
+		   			        	couList += `<li>${'${item.cName}'} : ${'${item.cRate}'}원 </li>`
+		   			        	
+		   			        	
+		   			        })   
+
+		   				});
+					$("#couList").html(couList);
+					$("#subDate").html(subDate);
+					$("#couponbt").val(coupon);
+					$("#subbt").val(subName);
+				}
 				
-				
-				let str ="";
-				
-				
-				 $.each(result, function(i, map){ //2개 
-					 str sub = "";
-					 sub +=`<b>${'${result.sDTO.subStartDate}'}</b><br>`;
-					 sub +=`<b>${'${result.sDTO.subPrice}'}</b><br>`;
-					 
-					 
-	   			       let str = "";
-	   			        $.each(map.qList , function(index, item){
-	   			        	str += "<tr>";
-							str += `<th scope="row">${'${item.qaNumber}'}</th>`;
-							str += `<td>${'${item.userId}'}</td>`;
-							str += `<td>${'${item.qaTitle}'}</td>`;
-							str += `<td><a href='${path}/front?key=qa&methodName=selectByQANum&qaNumber=${"${item.qaNumber}"}'>${'${item.qaContent}'}</a></td>`;
-							str += `<td>${'${item.qaDate}'}</td>`;
-							str += "</tr>"
-	   			        })   
-	   			          
-						
-	   			    
-	   			    })
-				
-			},error : function(err){  
-				alert(err+"에러 발생했어요.");
-			}  //실팽했을때 실행할 함수 
-		});
-	
-}
+			});
+		
+	}
+
+	selectAll();
 })
 </script>
 </head>
@@ -71,13 +68,18 @@ function selectAll(){
 					<div class="col-3">
 		           		<div class="row">
 			           		<div class="col">
-			           			<p class="text-start" >구독상태</p>
-			           			<p class="text-start" >잔여 적립금</p>
-			           			<p class="text-start" >잔여 쿠폰</p>
+			           			<p class="text-start" style="height:30%">구독상태</p> 
+			           			<p class="text-start" style="height:30%">잔여 적립금</p>
+			           			<p class="text-start" style="height:30%">잔여 쿠폰</p>
 		           			</div>
 		           			<div class="col">
-			           			<p class="text-end" ><button type="button" class="btn btn-link btn-sm" id="coupon" data-bs-toggle="modal" data-bs-target="#exampleModal1" style="text-decoration: none;">구독 고민중</button></p>	           				
-
+		           				
+	           					<p class="text-end" style="height:30%"><input type="button" class="btn btn-link btn-sm" id="subbt" data-bs-toggle="modal" data-bs-target="#exampleModal1" style="text-decoration: none;"></p>           				
+								<p class="text-end" style="height:30%"><button type="button" class="btn btn-link btn-sm" id="pointbt" data-bs-toggle="modal" data-bs-target="#exampleModal2" style="text-decoration: none; color: blue;" disabled="disabled" >${loginPoint}P</button></p>
+								<p class="text-end" style="height:30%"><input type="button" class="btn btn-link btn-sm" id="couponbt" data-bs-toggle="modal" data-bs-target="#exampleModal3" style="text-decoration: none;" ></p>
+							</div>
+						</div>	 		
+					</div>
 									  <!-- Modal --> 
 									  <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 									    <div class="modal-dialog modal-sm">
@@ -88,7 +90,7 @@ function selectAll(){
 									        </div>
 									        
 									        <div class="modal-body">
-										        <div class="col mt-3 text-center" id="sub">
+										        <div class="col mt-3 text-center" id="subDate">
 										        
 												</div> 		  
 									        </div>
@@ -101,7 +103,7 @@ function selectAll(){
 									  </div>
 		       						  <!-- Modal End -->
 		       						  
-			           			<p class="text-end" ><button type="button" class="btn btn-link btn-sm" id="coupon" data-bs-toggle="modal" data-bs-target="#exampleModal2" style="text-decoration: none;">3000p</button></p>
+			           				
 			           			
 									  <!-- Modal --> 
 									  <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -128,7 +130,7 @@ function selectAll(){
 									  </div>
 		       						  <!-- Modal End -->
 
-			           			<p class="text-end" ><button type="button" class="btn btn-link btn-sm" id="coupon" data-bs-toggle="modal" data-bs-target="#exampleModal3" style="text-decoration: none;">2</button></p>
+			           			
 									  
 									  <!-- Modal --> 
 									  <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -141,8 +143,8 @@ function selectAll(){
 									        </div>
 									        
 									        <div class="modal-body">
-										        <div class="col mt-3 text-center" id="cou">
-										        
+										        <div class="col mt-3 " id="couList">
+										        	
 												</div> 		  
 									        </div>
 									        <div class="modal-footer">
@@ -157,9 +159,8 @@ function selectAll(){
 			           			
 
 			           			
-		           			</div>	
-		           		</div>		 		
-					</div>
+		           			
+		           		
 					<div class="col-7  text-center">
 						<div class="row">
 						

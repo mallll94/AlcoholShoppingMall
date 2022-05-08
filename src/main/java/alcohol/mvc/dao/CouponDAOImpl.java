@@ -91,11 +91,42 @@ public class CouponDAOImpl implements CouponDAO {
 			}
 
 		} finally {
+
 			DbUtil.dbClose(rs, ps, con);
 		}
 				
 		return list;
 
+	}
+
+	@Override
+	public CouponDTO couponNo(String id) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		CouponDTO dto = null;
+		String sql = "select count(*) from coupon where U_ID=?";
+		
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setString(1, id);
+			
+			rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				dto = new CouponDTO(null,0,rs.getString(1));
+				
+			}
+
+		} finally {
+
+			DbUtil.dbClose(rs, ps, con);
+		}
+		
+		
+		
+		return dto;
 	}
 
 }

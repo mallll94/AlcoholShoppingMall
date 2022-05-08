@@ -29,4 +29,12 @@ public class CouponServiceImpl implements CouponService {
 		return list;
 	}
 
+	@Override
+	public CouponDTO couponNo(String id) throws SQLException {
+		CouponDTO dto = dao.couponNo(id);
+		return dto;
+	}
+	
+	
+
 }

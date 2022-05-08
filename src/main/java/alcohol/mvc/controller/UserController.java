@@ -215,18 +215,26 @@ public class UserController implements Controller {
 		
 	}
 	public void mypage(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
-		String id = request.getParameter("id");
-
+		response.setContentType("text/html;charset=UTF-8");
+		String id = request.getParameter("cate");
 
 		SubService subService = new SubServiceImpl();
 		CouponService couService = new CouponServiceImpl();
 		List<CouponDTO> clist=couService.couponAll(id);
-		SubDTO sDTO=subService.subSelect(id);
+		String couponNo = couService.couponNo(id).getCount();
 		
+		SubDTO sDTO=subService.subSelect(id);
+		String subCheck = sDTO.getSubCode();
+		String subName = "구독중이 아닙니다.";
+		if(!subCheck.equals("") || subCheck!=null) {
+			subName="구독중";	
+		}
+		System.out.println(couponNo);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("clist", clist);
 		map.put("sDTO", sDTO);
+		map.put("couponNo", couponNo);
+		map.put("subName",subName);
 
 		JSONArray arr = JSONArray.fromObject(map); //System.out.println(dto.getpName()+"나와라");
 		PrintWriter out = response.getWriter();
@@ -235,7 +243,12 @@ public class UserController implements Controller {
 		
 	}	
 	
-	
+	public void update(HttpServletRequest request, HttpServletResponse response)throws Exception {
+		String id = request.getParameter("id");
+		String pwd = request.getParameter("pwd");
+		String email = request.getParameter("email");
+		String phone = request.getParameter("phone");
+	}
 	
 	
 	

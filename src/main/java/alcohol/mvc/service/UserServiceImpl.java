@@ -57,9 +57,11 @@ public class UserServiceImpl implements UserService {
 	// 회원정보 수정
 	@Override
 	public void update(UserDTO userDTO) throws SQLException {
-
+		System.out.println(userDTO.getUserId());
 		// 비밀번호 검증(인수로 전달된 비번과 DB에 저장된 비번 비교)
 		UserDTO dbUser = userDao.selectByUserId(userDTO.getUserId());
+
+
 		if (dbUser == null) {
 			throw new SQLException("오류로 수정할 수 없습니다.");
 		} else if (!dbUser.getUserPwd().equals(userDTO.getUserPwd())) {

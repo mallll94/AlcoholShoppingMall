@@ -132,7 +132,7 @@ public class UserDAOImpl implements UserDAO {
 		ResultSet rs = null;
 		UserDTO userDTO = null;
 		String sql = " select * from users where u_id=?";
-
+		
 		try {
 
 			con = DbUtil.getConnection();
@@ -216,23 +216,20 @@ public class UserDAOImpl implements UserDAO {
 	// 회원정보 수정
 	@Override
 	public int update(UserDTO userDTO) throws SQLException {
-
+		System.out.println(userDTO.getUserId());
 		Connection con = null;
 		PreparedStatement ps = null;
 		int result = 0;
-		String sql = "UPDATE USERS SET U_PWD =? , U_PHONE =?, U_ADDR=?, U_ADDR2=?, U_ADDR3=? WHERE U_ID=?";
+		String sql = "UPDATE USERS SET  U_PHONE =?, U_EMAIL=? WHERE U_ID=?";
 
 		try {
 
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
 
-			ps.setString(1, userDTO.getUserPwd());
-			ps.setString(2, userDTO.getUserPhone());
-			ps.setString(3, userDTO.getUserAddr());
-			ps.setString(4, userDTO.getUserAddr2());
-			ps.setString(5, userDTO.getUserAddr3());
-			ps.setString(6, userDTO.getUserId());
+			ps.setString(1, userDTO.getUserPhone());
+			ps.setString(2, userDTO.getUserEmail());
+			ps.setString(3, userDTO.getUserId());
 
 			result = ps.executeUpdate();
 

@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="${path}/front" method="get">
+	
 	<div class="row mt-4">
 		<div class="col-1"></div>
 		<div class="col-10">
@@ -15,13 +15,14 @@
 			  <div class="card-body">
 			  	<div class="row">
 			  		<div class="col">
+			  			<form action="${path}/front" method="get">
 			  			<div class="input-group mb-3">
 						  <span class="input-group-text" id="inputGroup-sizing-default">이름</span>
 						  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="${loginName}" disabled>
 						</div><p>
 			  			<div class="input-group mb-3">
 						  <span class="input-group-text" id="inputGroup-sizing-default">아이디</span>
-						  <input type="text" class="form-control" name="id" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="${loginId}" disabled>
+						  <input type="text" class="form-control" name="id" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="${loginId}" >
 						</div><p>
 						<div class="input-group mb-3">
 						  <span class="input-group-text" id="inputGroup-sizing-default">비밀번호</span>
@@ -31,12 +32,14 @@
 						  <span class="input-group-text" id="inputGroup-sizing-default">이메일</span>
 						  <input type="text" class="form-control" name="email" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="${loginUser.userEmail}">
 						</div><p>
+						<input type="hidden" name="key" value="user" >
+   						<input type="hidden" name="methodName" value="update" >
 						<div class="input-group mb-3">
 						  <span class="input-group-text" id="inputGroup-sizing-default">연락처</span>
 						  <input type="text" class="form-control" name="phone" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="${loginUser.userPhone}">
 						</div>
-						<p class="text-end" ><button type="button" class="btn btn-link , btn btn-dark" style="text-decoration: none; color:white;">수정</button></p>
-
+						<p class="text-end" ><input type="submit" class="btn btn-link , btn btn-dark" style="text-decoration: none; color:white;" value="수정"></p>
+						</form>
 			  		</div>		  		
 			  	</div>
 			  </div>
@@ -44,9 +47,8 @@
 		</div>	
 		<div class="col-1"></div>
 	</div>
-	<input type="hidden" name="key" value="user" >
-   	<input type="hidden" name="methodName" value="update" >
-	</form>
+	
+	
 
 
 

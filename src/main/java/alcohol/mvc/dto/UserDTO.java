@@ -38,6 +38,16 @@ public class UserDTO {
 		this.joinDate = joinDate;
 	}
 
+
+	public UserDTO(String userId, String userPwd, String userPhone, String userEmail) {
+		super();
+		this.userId = userId;
+		this.userPwd = userPwd;
+		this.userPhone = userPhone;
+		this.userEmail = userEmail;
+
+	}
+
 	public UserDTO(String joinDate,String userId, String userName, String userPhone, String price) {
 		super();
 		this.userId = userId;

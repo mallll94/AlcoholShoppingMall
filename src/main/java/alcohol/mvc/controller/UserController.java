@@ -243,11 +243,17 @@ public class UserController implements Controller {
 		
 	}	
 	
-	public void update(HttpServletRequest request, HttpServletResponse response)throws Exception {
+	public ModelAndView update(HttpServletRequest request, HttpServletResponse response)throws Exception {
+
 		String id = request.getParameter("id");
 		String pwd = request.getParameter("pwd");
 		String email = request.getParameter("email");
 		String phone = request.getParameter("phone");
+		UserDTO dto = new UserDTO(id, pwd, phone, email);
+		userService.update(dto);
+		
+		ModelAndView mv = new ModelAndView("index.jsp",true);
+		return mv;
 	}
 	
 	
